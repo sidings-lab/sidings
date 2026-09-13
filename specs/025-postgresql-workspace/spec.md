@@ -2,7 +2,7 @@
 
 ## User Value
 
-Users can manage local PostgreSQL connection profiles, inspect database objects, run SQL, and review tabular results without leaving code-cat.
+Users can manage local PostgreSQL connection profiles, inspect database objects, run SQL, and review tabular results without leaving the application.
 
 ## User Scenarios
 
@@ -23,7 +23,7 @@ A user writes SQL, runs it against the active connection, and reviews each resul
 - **FR-001**: The activity bar MUST provide a Database workspace without replacing the existing conversation, specification, terminal, or Git interfaces.
 - **FR-002**: Users MUST be able to create, list, edit, and delete PostgreSQL connection profiles.
 - **FR-003**: Connection API responses MUST NOT include saved passwords.
-- **FR-004**: Saved connection profiles MUST be stored under the code-cat filesystem state root with owner-only file permissions.
+- **FR-004**: Saved connection profiles MUST be stored under the application filesystem state root with owner-only file permissions.
 - **FR-005**: Users MUST be able to test a saved connection before querying it.
 - **FR-006**: The object explorer MUST list non-system schemas and their tables, partitioned tables, views, materialized views, and columns.
 - **FR-007**: Users MUST be able to execute SQL from the query editor using a button or Ctrl/Cmd+Enter.
@@ -49,7 +49,7 @@ A user writes SQL, runs it against the active connection, and reviews each resul
 
 ## Assumptions
 
-- code-cat runs as a local, single-user application.
-- Users trust the local machine account that owns the code-cat state directory.
+- The product runs as a local, single-user application.
+- Users trust the local machine account that owns the application state directory.
 - SSL certificate verification is outside the initial local-development scope.
 - Query cancellation, SQL autocomplete, export, explain plans, charts, and additional database engines are outside this feature.

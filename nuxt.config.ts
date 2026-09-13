@@ -8,6 +8,14 @@ const pkg = JSON.parse(
 
 export default defineNuxtConfig({
   ssr: false,
+  app: {
+    head: {
+      title: 'Sidings — Git-native agent workbench',
+      meta: [
+        { name: 'description', content: 'Run coding agents in isolated Git worktrees from a local web dashboard.' }
+      ]
+    }
+  },
   compatibilityDate: '2026-07-08',
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],

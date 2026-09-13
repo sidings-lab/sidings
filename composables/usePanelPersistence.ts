@@ -1,7 +1,6 @@
 import type { Ref } from 'vue'
 
-// These `code-cat-*` keys predate the Spec Cat/Brick naming. They are retained
-// as a local-storage compatibility contract so upgrades keep the user's layout.
+// Keep these local-storage keys stable so upgrades retain the user's layout.
 const SIDEBAR_PANEL_KEY = 'code-cat-sidebar-panel'
 const SIDEBAR_COLLAPSED_KEY = 'code-cat-sidebar-collapsed'
 const SPEC_PANEL_COLLAPSED_KEY = 'code-cat-spec-panel-collapsed'

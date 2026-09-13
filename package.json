@@ -1,19 +1,26 @@
 {
-  "name": "spec-cat",
-  "version": "0.1.90",
-  "description": "Spec-driven development workbench",
+  "name": "sidings",
+  "version": "0.2.0",
+  "description": "Git-native workbench for autonomous coding agents",
   "license": "MIT",
   "keywords": [
-    "spec",
-    "workflow",
-    "nuxt",
+    "coding-agents",
+    "worktree",
+    "tmux",
     "git",
-    "ai"
+    "ai",
+    "terminal"
   ],
   "type": "module",
   "bin": {
-    "spec-cat": "./bin/code-cat.mjs"
+    "sidings": "./bin/sidings.mjs"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spec-cat/sidings.git"
+  },
+  "homepage": "https://github.com/spec-cat/sidings#readme",
+  "bugs": "https://github.com/spec-cat/sidings/issues",
   "files": [
     ".output",
     ".output/server/node_modules/node-pty",
@@ -29,12 +36,13 @@
     "dev": "nuxt dev",
     "build": "node scripts/build-package.mjs",
     "build:nuxt": "nuxt build",
-    "prepack": "bun run build",
+    "prepack": "pnpm build",
     "preview": "nuxt preview",
     "test": "bun test",
     "verify-build": "node scripts/verify-build.mjs",
     "typecheck": "nuxt typecheck"
   },
+  "packageManager": "pnpm@11.24.0",
   "dependencies": {
     "@xterm/addon-fit": "^0.11.0",
     "@xterm/addon-unicode11": "^0.9.0",

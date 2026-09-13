@@ -34,7 +34,7 @@ export function useGitWorkspaceManagement(options: {
     await nextTick(); options.focusWorktreeCreate(); await refreshWorktrees()
   }
   async function createWorktree() {
-    const result = await options.openDialog({ title: 'Create Worktree', message: 'The worktree is created under the managed spec-cat tmp directory.', confirmLabel: 'Create', fields: [
+    const result = await options.openDialog({ title: 'Create Worktree', message: 'The worktree is created under the managed Sidings state directory.', confirmLabel: 'Create', fields: [
       { kind: 'text', key: 'branch', label: 'Branch (created if missing)', value: '', placeholder: 'sc/experiment' },
       { kind: 'text', key: 'baseRef', label: 'Base ref (for a new branch)', value: 'HEAD' }
     ] })

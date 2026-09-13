@@ -1,0 +1,36 @@
+name: Feature request
+description: Propose an improvement to Sidings.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What workflow is difficult today, and who encounters it?
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome
+      description: Describe the user-visible result rather than only an implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Agent providers
+        - Git and worktrees
+        - Terminal and tmux
+        - Spec workflows
+        - Packaging and installation
+        - Other
+    validations:
+      required: true

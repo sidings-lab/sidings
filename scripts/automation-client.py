@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Reference client for the code-cat browserless job API (stdlib only).
+"""Reference client for the Sidings browserless job API (stdlib only).
 
 Submits one chat turn to an existing conversation and follows its event
 stream via HTTP polling with a replay cursor:
@@ -39,8 +39,8 @@ def request_json(url, payload=None):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Submit a browserless chat turn to code-cat.")
-    parser.add_argument("--base-url", default="http://127.0.0.1:3000", help="code-cat server URL")
+    parser = argparse.ArgumentParser(description="Submit a browserless chat turn to Sidings.")
+    parser.add_argument("--base-url", default="http://127.0.0.1:3000", help="Sidings server URL")
     parser.add_argument("--session", required=True, help="conversation session id (conv-...)")
     parser.add_argument("--poll-interval", type=float, default=1.0, help="seconds between polls")
     parser.add_argument("prompt", help="prompt text to submit")

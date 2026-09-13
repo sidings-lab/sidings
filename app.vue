@@ -43,8 +43,8 @@ const TERMINAL_FONT_SIZE = 14
 const TERMINAL_FONT_SIZE_MOBILE = 11
 const terminalFontSize = computed(() => (isMobile.value ? TERMINAL_FONT_SIZE_MOBILE : TERMINAL_FONT_SIZE))
 
-// Brick's most useful affordance is that the repository is always the first
-// piece of context. Keep the graph mounted as the left-most column.
+// The repository is always the first piece of context. Keep the graph mounted
+// as the left-most column.
 const gitGraphState = ref<'floating' | 'pinned'>('pinned')
 const gitGraphPinned = computed({
   get: () => gitGraphState.value === 'pinned',
@@ -176,7 +176,7 @@ const appGridColumns = computed(() => {
   // Maximized chat drops the spec and conversation tracks entirely; the chat
   // column takes the space they used to occupy.
   if (chatMaximized.value) return 'minmax(0,3fr) minmax(0,7fr)'
-  // Match brick's 30 / 20 / 20 / 30 information architecture. The elements
+  // Match the 30 / 20 / 20 / 30 information architecture. The elements
   // are assigned to these tracks with CSS so their implementation can remain
   // exactly where it is in this (intentionally monolithic) component.
   // The tracks carry no pixel floor on purpose: a floor larger than the
