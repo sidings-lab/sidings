@@ -4,6 +4,7 @@ export type TerminalMessage = {
   type?: string
   data?: string
   sessionId?: string
+  create?: boolean
   provider?: ProviderId
   baseBranch?: string
   featureId?: string

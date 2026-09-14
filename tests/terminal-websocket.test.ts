@@ -98,4 +98,28 @@ describe('terminal WebSocket dispatch', () => {
     expect(failure.sent).toEqual(['\r\n[failed to attach tmux session: boom]\r\n'])
     expect(failure.isClosed()).toBe(true)
   })
+
+  test('forwards create flag to attach handler', async () => {
+    let receivedCreate: boolean | undefined
+    let receivedSessionId: string | undefined
+    const harness = peerHarness()
+    const terminal = sessionHarness(harness.peer)
+    const handlers = createTerminalWebSocketHandlers({
+      attach: async (_peer, sessionId, _provider, _baseBranch, _featureId, _cols, _rows, create) => {
+        receivedSessionId = sessionId
+        receivedCreate = create
+        return terminal.session
+      },
+      sessionForPeer: () => null,
+      detach: () => {}
+    })
+
+    await handlers.message(harness.peer, { text: () => JSON.stringify({ type: 'attach', create: true }) })
+    expect(receivedCreate).toBe(true)
+    expect(receivedSessionId).toBeUndefined()
+
+    await handlers.message(harness.peer, { text: () => JSON.stringify({ type: 'attach', sessionId: 'conv-1' }) })
+    expect(receivedCreate).toBe(false)
+    expect(receivedSessionId).toBe('conv-1')
+  })
 })

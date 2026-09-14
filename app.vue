@@ -9,6 +9,7 @@ import { rainglowThemes } from '~/assets/rainglow/themes'
 import { getThemeVars, getXtermTheme as createXtermTheme } from '~/utils/rainglow-theme'
 import { runTopmostModalHandler } from '~/utils/modal-stack'
 import { filterActiveConversations, filterArchivedConversations } from '~/utils/conversation-filter'
+import { resolveInitialSessionAction } from '~/utils/session-resolution'
 const GIT_GRAPH_STATE_KEY = 'code-cat-git-graph-state'
 
 const appReady = ref(false)
@@ -72,7 +73,7 @@ const { toasts, pushToast, dismissToast, disposeToasts } = useToastStack()
 const { writeClipboard } = useTerminalClipboard(pushToast)
 const conversationWorkspaceRef = ref<ConversationWorkspaceExpose | null>(null)
 const sessionId = ref('')
-const status = ref<'connecting' | 'connected' | 'closed'>('connecting')
+const status = ref<'connecting' | 'connected' | 'closed'>('closed')
 const shells = ref<ShellSessionInfo[]>([])
 const loadingShells = ref(false)
 const creatingShell = ref(false)
@@ -246,11 +247,20 @@ useAppBrowserLifecycle({
   handleGlobalEnter, handleToggleSidebarShortcut,
   initialize: async () => {
     await Promise.allSettled([loadAppSettings(), loadSessionOptions(), refreshSessions(), refreshArchivedSessions(), refreshShells()])
-    const initialSessionId = getInitialSessionId(sessions.value[0]?.id)
-    if (initialSessionId && sessions.value.find((session) => session.id === initialSessionId)?.finalized) {
-      selectSession(initialSessionId)
-    } else if (initialSessionId) {
-      connect(initialSessionId)
+    const resolution = resolveInitialSessionAction(
+      getInitialSessionId(),
+      sessions.value,
+      archivedSessions.value
+    )
+    if (resolution.action === 'connect') {
+      connect(resolution.sessionId)
+    } else if (resolution.action === 'select') {
+      selectSession(resolution.sessionId)
+    } else if (resolution.action === 'selectArchived') {
+      void selectArchivedSession(resolution.session)
+    } else {
+      clearSessionId()
+      closeConversationTerminal()
     }
   }
 })

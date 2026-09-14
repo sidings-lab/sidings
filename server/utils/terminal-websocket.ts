@@ -18,7 +18,8 @@ type AttachTerminalSession = (
   baseBranch?: string,
   featureId?: string,
   cols?: number,
-  rows?: number
+  rows?: number,
+  create?: boolean
 ) => Promise<TerminalSession>
 
 export function createTerminalWebSocketHandlers(options: {
@@ -44,7 +45,8 @@ export function createTerminalWebSocketHandlers(options: {
             parsed.baseBranch,
             parsed.featureId,
             parsed.cols,
-            parsed.rows
+            parsed.rows,
+            Boolean(parsed.create)
           )
           sendTerminalControl(peer, { type: 'attached', sessionId: session.id })
         } catch (error) {

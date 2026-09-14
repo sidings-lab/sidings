@@ -17,7 +17,7 @@ export function useConversationTerminal(options: {
 }) {
   const terminalEl = ref<HTMLElement | null>(null)
   const sessionId = ref('')
-  const status = ref<'connecting' | 'connected' | 'closed'>('connecting')
+  const status = ref<'connecting' | 'connected' | 'closed'>('closed')
   let terminal: Terminal | null = null
   let fitAddon: import('@xterm/addon-fit').FitAddon | null = null
   let socket: WebSocket | null = null
@@ -73,6 +73,7 @@ export function useConversationTerminal(options: {
   }
 
   function connect(targetSessionId?: string, provider?: ProviderId, creation?: { baseBranch?: string; featureId?: string }) {
+    if ((!targetSessionId || !targetSessionId.trim()) && !creation) return
     if (!terminal) {
       pendingConnect = { targetSessionId, provider, creation }
       status.value = 'connecting'
@@ -90,9 +91,16 @@ export function useConversationTerminal(options: {
       if (socket !== current) return
       status.value = 'connected'
       performFit(false)
-      current.send(JSON.stringify({ type: 'attach', sessionId: targetSessionId, provider,
-        baseBranch: creation?.baseBranch, featureId: creation?.featureId,
-        cols: terminal?.cols, rows: terminal?.rows }))
+      current.send(JSON.stringify({
+        type: 'attach',
+        sessionId: targetSessionId,
+        create: Boolean(creation),
+        provider,
+        baseBranch: creation?.baseBranch,
+        featureId: creation?.featureId,
+        cols: terminal?.cols,
+        rows: terminal?.rows
+      }))
       terminal?.focus()
     })
     current.addEventListener('message', (event) => {
@@ -145,7 +153,6 @@ export function useConversationTerminal(options: {
   function getInitialSessionId(fallback?: string) {
     if (sessionId.value) return sessionId.value
     const stored = window.localStorage.getItem('claude-web-session-id')
-    if (stored) sessionId.value = stored
     return stored || fallback
   }
   function updateAppearance(fontSize: number, theme: TerminalTheme) {

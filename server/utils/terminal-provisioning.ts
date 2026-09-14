@@ -26,12 +26,17 @@ export async function provisionTerminalSession(options: {
   baseBranch?: string
   featureId?: string
   branch?: string
+  allowCreate?: boolean
 }): Promise<ProvisionedTerminal> {
   const id = options.sessionId || generateConversationId()
   const stored = await readStoredSession(id)
   const now = new Date().toISOString()
   const provider = stored?.provider || options.provider
   if (stored?.finalized) throw new Error('This conversation has been finalized')
+  if (stored?.archived) throw new Error('This conversation has been archived')
+  if (options.sessionId && !stored && options.allowCreate === false) {
+    throw new Error(`Conversation ${options.sessionId} not found`)
+  }
   const cliBin = buildProviderCommand(provider)
   const tmuxName = stored?.tmuxName || `${provider}-web-${projectKey()}-${sanitizeTmuxName(id)}`
   const projectDir = stored?.projectDir || defaultProjectDir()

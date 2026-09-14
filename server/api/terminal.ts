@@ -1,5 +1,5 @@
 import type { Peer } from 'crossws'
-import type { ProviderId } from '../utils/session-store'
+import { readStoredSession, type ProviderId } from '../utils/session-store'
 import { recordTerminalAttach } from '../utils/runtime-activity'
 import { followSessionBranch } from '../utils/session-integration'
 import {
@@ -48,7 +48,8 @@ export async function createAutomationConversation(options: {
     options.provider,
     options.baseBranch,
     options.featureId,
-    options.branch
+    options.branch,
+    true
   )
   if (session.peers.size === 0) scheduleSessionCleanup(session)
   return {
@@ -72,11 +73,20 @@ async function attachSession(
   requestedBaseBranch?: string,
   requestedFeatureId?: string,
   requestedCols?: number,
-  requestedRows?: number
+  requestedRows?: number,
+  create?: boolean
 ) {
   const id = normalizeTerminalSessionId(requestedSessionId)
   if (requestedSessionId && !id) throw new Error('Invalid session ID')
-  const session = await getOrCreateSession(id, requestedProvider, requestedBaseBranch, requestedFeatureId)
+  if (!id && !create) throw new Error('Session ID is required to attach')
+  const session = await getOrCreateSession(
+    id,
+    requestedProvider,
+    requestedBaseBranch,
+    requestedFeatureId,
+    undefined,
+    Boolean(create)
+  )
 
   await reviveTerminalSession(session)
 
@@ -106,14 +116,26 @@ async function getOrCreateSession(
   provider?: ProviderId,
   baseBranch?: string,
   featureId?: string,
-  branch?: string
+  branch?: string,
+  allowCreate = false
 ) {
-  if (!id) return createSession(undefined, provider, baseBranch, featureId, branch)
+  if (!id) {
+    if (!allowCreate) throw new Error('Session ID is required to attach')
+    return createSession(undefined, provider, baseBranch, featureId, branch, true)
+  }
   const existing = sessions.get(id)
   if (existing) return existing
   const pending = sessionCreations.get(id)
   if (pending) return pending
-  const creation = createSession(id, provider, baseBranch, featureId, branch)
+  const stored = await readStoredSession(id)
+  if (!stored) {
+    if (!allowCreate) throw new Error(`Conversation ${id} not found`)
+  } else if (stored.archived) {
+    throw new Error(`Conversation ${id} is archived`)
+  } else if (stored.finalized) {
+    throw new Error('This conversation has been finalized')
+  }
+  const creation = createSession(id, provider, baseBranch, featureId, branch, allowCreate)
   sessionCreations.set(id, creation)
   try {
     return await creation
@@ -127,14 +149,16 @@ async function createSession(
   requestedProvider: ProviderId = 'claude',
   requestedBaseBranch?: string,
   requestedFeatureId?: string,
-  requestedBranch?: string
+  requestedBranch?: string,
+  allowCreate = false
 ): Promise<TerminalSession> {
   const { id, provider, tmuxName, cwd, cliBin, tmuxCreated, tmuxLaunchedAtMs } = await provisionTerminalSession({
     sessionId: requestedSessionId,
     provider: requestedProvider,
     baseBranch: requestedBaseBranch,
     featureId: requestedFeatureId,
-    branch: requestedBranch
+    branch: requestedBranch,
+    allowCreate
   })
 
   let session!: TerminalSession

@@ -72,7 +72,7 @@ export function useSessionArchive(options: {
       }
       await Promise.allSettled([options.refreshSessions(), refreshArchivedSessions()])
       options.pushToast('success', 'Conversation archived.')
-      if (active && options.sessions.value[0]) options.connect(options.sessions.value[0].id)
+      if (active && options.sessions.value[0]) options.selectSession(options.sessions.value[0].id)
     } catch (error) { options.pushToast('error', `Failed to archive conversation: ${extractFetchError(error)}`, 6000) }
     finally { archivingSessionId.value = '' }
   }
