@@ -4,7 +4,7 @@ info:
   description: Server API for git graph visualization and repository operations (Redesign)
   version: 2.0.0
   contact:
-    name: Spec Cat Project
+    name: Sidings Project
 
 servers:
   - url: /api

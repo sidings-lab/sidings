@@ -5,7 +5,7 @@ import { join } from 'node:path'
 import { startCliHookMonitor, type CliHookMonitorOptions } from '../server/utils/cli-hook-monitor'
 import type { CliHookRecord } from '../server/utils/cli-hooks'
 
-const root = await mkdtemp(join(tmpdir(), 'spec-cat-hook-monitor-'))
+const root = await mkdtemp(join(tmpdir(), 'sidings-hook-monitor-'))
 let spoolCounter = 0
 
 afterAll(async () => {

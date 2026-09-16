@@ -7,11 +7,11 @@ import type { StoredTerminalSession } from '../server/utils/session-store'
 
 // The store resolves its root from the environment at import time, so the
 // override must be in place before the module is loaded.
-const storeRoot = await mkdtemp(join(tmpdir(), 'spec-cat-store-'))
-process.env.SPEC_CAT_V2_DIR = storeRoot
+const storeRoot = await mkdtemp(join(tmpdir(), 'sidings-store-'))
+process.env.SIDINGS_V2_DIR = storeRoot
 // Session listings are scoped to the launching project, so pin it to the
 // store root the fixture sessions belong to.
-process.env.SPEC_CAT_PROJECT_DIR = storeRoot
+process.env.SIDINGS_PROJECT_DIR = storeRoot
 
 const {
   appendSessionLog,

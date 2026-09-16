@@ -23,7 +23,7 @@ defineEmits<{
 <template>
   <header class="grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center border-b border-[var(--rg-border)] bg-[var(--rg-sidebar)] px-3 text-[11px] text-[var(--rg-muted)]">
     <div class="flex min-w-0 items-center gap-2">
-      <span class="text-[11px] font-bold uppercase tracking-wider text-[var(--rg-accent)]">SPECCAT</span>
+      <span class="text-[11px] font-bold uppercase tracking-wider text-[var(--rg-accent)]">SIDINGS</span>
       <span class="truncate font-mono text-[11px]">/ {{ projectName || activeSession?.projectDir?.split('/').filter(Boolean).pop() || 'workspace' }}</span>
     </div>
     <div class="flex h-full min-w-0 items-center gap-0.5 font-mono text-[11px]">

@@ -6,7 +6,7 @@ Thank you for helping improve Sidings. Bug reports, small focused fixes, platfor
 
 - Search existing issues and pull requests.
 - For substantial behavior changes, open an issue first so the user experience and compatibility constraints can be agreed on.
-- Never include API keys, private prompts, repository content, or files from `~/.spec-cat` in an issue or fixture.
+- Never include API keys, private prompts, repository content, or files from `~/.sidings` in an issue or fixture.
 
 ## Local development
 
@@ -26,7 +26,8 @@ The final command briefly starts the packaged application for a localhost smoke 
 
 - Keep user-facing text, documentation, specifications, and code comments in English.
 - Add or update tests for behavior changes.
-- Preserve the existing `SPEC_CAT_*` variables, `code-cat-*` browser keys, and `~/.spec-cat` paths unless the change explicitly includes a migration.
+- Preserve the existing `SIDINGS_*` variables, `code-cat-*` browser keys, and `~/.sidings` paths unless the change explicitly includes a migration.
+- Renaming an on-disk location needs a migration that also repairs the absolute paths it invalidates: stored session records and git's worktree registrations (see `server/utils/store-migration.ts`).
 - Explain platform assumptions, especially for tmux, node-pty, macOS, Linux, and WSL behavior.
 - Keep unrelated refactors out of the change.
 

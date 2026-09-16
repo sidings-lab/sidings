@@ -7,7 +7,7 @@ const OTHER_KEY = 'def456def456'
 const activeSession: RecoverySessionInfo = {
   id: 'active-11111111',
   tmuxName: `claude-web-${KEY}-active-11111111`,
-  cwd: '/home/user/.spec-cat/tmp/sc-active-11111111',
+  cwd: '/home/user/.sidings/tmp/sc-active-11111111',
   projectDir: '/home/user/src/project',
   worktreeBranch: 'sc/active-11111111'
 }
@@ -16,7 +16,7 @@ const archivedSession: RecoverySessionInfo = {
   id: 'archived-2222222',
   tmuxName: `codex-web-${KEY}-archived-2222222`,
   archived: true,
-  cwd: '/home/user/.spec-cat/tmp/sc-archived-2222222',
+  cwd: '/home/user/.sidings/tmp/sc-archived-2222222',
   projectDir: '/home/user/src/project',
   worktreeBranch: 'sc/archived-2222222'
 }

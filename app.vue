@@ -440,7 +440,7 @@ function getXtermTheme() {
         :session-id="sessionId" :active-session="activeSession" :session-count="sessions.length" :status-text="statusText" />
     </section>
     <Transition name="splash"><div v-if="!appReady" class="fixed inset-0 z-[500] grid place-items-center bg-[var(--rg-terminal)]">
-      <div class="grid justify-items-center gap-3 font-mono"><span class="text-2xl font-bold tracking-[0.4em]">SPECCAT</span><span>starting terminal...</span></div>
+      <div class="grid justify-items-center gap-3 font-mono"><span class="text-2xl font-bold tracking-[0.4em]">SIDINGS</span><span>starting terminal...</span></div>
     </div></Transition>
     <Teleport to="body">
       <AppToastStack :toasts="toasts" :theme-vars="themeVars" @dismiss="dismissToast" />

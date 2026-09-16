@@ -5,8 +5,8 @@ import { join } from 'node:path'
 
 // The store resolves its root from the environment at import time, so the
 // override must be in place before the module is loaded.
-const storeRoot = await mkdtemp(join(tmpdir(), 'spec-cat-jobs-'))
-process.env.SPEC_CAT_V2_DIR = storeRoot
+const storeRoot = await mkdtemp(join(tmpdir(), 'sidings-jobs-'))
+process.env.SIDINGS_V2_DIR = storeRoot
 
 const {
   createJobQueue,

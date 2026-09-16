@@ -109,7 +109,7 @@ This provides a read-only git graph with commit exploration - valuable on its ow
 Before marking any lane complete:
 1. All FRs for that lane implemented and tested
 2. No regressions in existing functionality
-3. UI components follow Spec Cat design system (retro-terminal theme)
+3. UI components follow Sidings design system (retro-terminal theme)
 4. Server endpoints include proper error handling
 5. Virtual scrolling performance validated (300+ commits)
 

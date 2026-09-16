@@ -17,7 +17,7 @@ export async function requireAllowedGitCwd(value: unknown) {
 
 /**
  * Canonical (symlink-resolved) root of the project this server instance is
- * scoped to. Used to keep each `spec-cat` invocation's session list isolated to
+ * scoped to. Used to keep each `sidings` invocation's session list isolated to
  * the directory it was launched from.
  */
 export async function getConfiguredProjectRoot(): Promise<string> {

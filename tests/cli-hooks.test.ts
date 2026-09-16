@@ -13,7 +13,7 @@ import {
   providerSupportsCliHooks
 } from '../server/utils/cli-hooks'
 
-const root = await mkdtemp(join(tmpdir(), 'spec-cat-cli-hooks-'))
+const root = await mkdtemp(join(tmpdir(), 'sidings-cli-hooks-'))
 
 afterAll(async () => {
   await rm(root, { recursive: true, force: true })
@@ -110,7 +110,7 @@ describe('prepareClaudeHooks', () => {
     expect(settings.permissions).toEqual({ allow: ['Bash(ls:*)'] })
     expect(settings.hooks.Stop).toHaveLength(2)
     expect(settings.hooks.Stop[0].hooks[0].command).toBe('notify-send done')
-    expect(settings.hooks.Stop[1].hooks[0].command).toContain('spec-cat-hook-runner.cjs')
+    expect(settings.hooks.Stop[1].hooks[0].command).toContain('sidings-hook-runner.cjs')
   })
 
   test('re-running dedupes previously injected entries', async () => {
@@ -143,6 +143,30 @@ describe('prepareClaudeHooks', () => {
     const settings = await readSettings(cwd)
     expect(settings.hooks.Stop).toHaveLength(1)
     expect(settings.hooks.Stop[0].hooks[0].command).toContain('conv-legacy.jsonl')
+  })
+
+  test('replaces entries injected under the pre-rename runner name', async () => {
+    const storeRoot = join(root, 'store-prerename')
+    const cwd = join(root, 'worktree-prerename')
+    const { mkdir, writeFile } = await import('node:fs/promises')
+    await mkdir(join(cwd, '.claude'), { recursive: true })
+    await writeFile(join(cwd, '.claude', 'settings.local.json'), JSON.stringify({
+      hooks: {
+        Stop: [{
+          hooks: [{
+            type: 'command',
+            command: 'node "/home/u/.spec-cat/v2/cli-hooks/spec-cat-hook-runner.cjs" "/home/u/.spec-cat/v2/cli-hooks/conv.jsonl"'
+          }]
+        }]
+      }
+    }))
+
+    prepareClaudeHooks(cwd, 'conv-prerename', storeRoot)
+
+    const settings = await readSettings(cwd)
+    expect(settings.hooks.Stop).toHaveLength(1)
+    expect(settings.hooks.Stop[0].hooks[0].command).toContain('sidings-hook-runner.cjs')
+    expect(settings.hooks.Stop[0].hooks[0].command).not.toContain('spec-cat')
   })
 })
 

@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { describeWorktrees, isManagedWorktreeChild, parseWorktreeList } from '../server/utils/worktree'
 
-const MANAGED_ROOT = '/home/user/.spec-cat/tmp'
+const MANAGED_ROOT = '/home/user/.sidings/tmp'
 
 const porcelainFixture = [
   'worktree /home/user/src/project',

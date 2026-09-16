@@ -14,7 +14,7 @@ Options:
   -p, --port <port>     Port to listen on (default: 3000)
   -H, --host <host>     Host to bind (default: 127.0.0.1)
       --project <dir>   Project directory to operate on
-                        (sets SPEC_CAT_PROJECT_DIR)
+                        (sets SIDINGS_PROJECT_DIR)
       --no-open         Do not open Sidings in the default browser
   -h, --help            Show this help message
 `
@@ -109,8 +109,8 @@ if (options.project !== undefined) {
   if (!existsSync(projectDir) || !statSync(projectDir).isDirectory()) {
     fail(`project directory does not exist: ${projectDir}`)
   }
-  // Keep the legacy variable stable so existing installations retain their state.
-  process.env.SPEC_CAT_PROJECT_DIR = projectDir
+  // The server scopes its session store and worktree root to this variable.
+  process.env.SIDINGS_PROJECT_DIR = projectDir
 }
 
 process.env.NITRO_PORT = String(options.port)

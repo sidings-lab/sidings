@@ -43,8 +43,8 @@ async function setup() {
   await git(worktree, ['add', '-A'])
   await git(worktree, ['commit', '-qm', 'feature two'])
 
-  process.env.SPEC_CAT_V2_DIR = v2
-  process.env.SPEC_CAT_PROJECT_DIR = projectDir
+  process.env.SIDINGS_V2_DIR = v2
+  process.env.SIDINGS_PROJECT_DIR = projectDir
   const store = await import('../server/utils/session-store')
   const integ = await import('../server/utils/session-integration')
 

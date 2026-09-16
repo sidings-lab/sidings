@@ -17,7 +17,7 @@ Implement a comprehensive git graph visualization feature modeled after vscode-g
 **Project Type**: web - Nuxt 3 application with server-side git operations
 **Performance Goals**: 300 commits initial load, <100ms UI response, 10s auto-refresh
 **Constraints**: No external git libraries (direct CLI only), maintain scroll position on refresh
-**Architecture**: Graph rendered as panel in Spec Cat layout, Git repository as server working directory
+**Architecture**: Graph rendered as panel in Sidings layout, Git repository as server working directory
 **Rendering**: SVG rendering for graph column (replacing previous Canvas approach)
 **Git Operations**: Server-side via `child_process` git CLI wrappers
 **Scale/Scope**: Support repos with 1000+ commits, 12-branch color palette, virtual scrolling
@@ -29,7 +29,7 @@ Implement a comprehensive git graph visualization feature modeled after vscode-g
 - ✓ Uses existing stack (Nuxt 3, Vue 3, Pinia, Tailwind)
 - ✓ No new external dependencies (git CLI wrapping only)
 - ✓ Follows existing patterns (components/, stores/, server/api/)
-- ✓ Maintains Spec Cat design system (retro-terminal theme)
+- ✓ Maintains Sidings design system (retro-terminal theme)
 
 ## Project Structure
 

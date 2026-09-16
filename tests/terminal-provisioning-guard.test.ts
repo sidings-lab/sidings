@@ -3,9 +3,9 @@ import { mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
-const testRoot = await mkdtemp(join(tmpdir(), 'spec-cat-prov-test-'))
-process.env.SPEC_CAT_V2_DIR = testRoot
-process.env.SPEC_CAT_PROJECT_DIR = testRoot
+const testRoot = await mkdtemp(join(tmpdir(), 'sidings-prov-test-'))
+process.env.SIDINGS_V2_DIR = testRoot
+process.env.SIDINGS_PROJECT_DIR = testRoot
 
 const { writeStoredSession } = await import('../server/utils/session-store')
 const { provisionTerminalSession } = await import('../server/utils/terminal-provisioning')

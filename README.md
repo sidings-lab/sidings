@@ -11,24 +11,28 @@ The name comes from railways: the main branch is the main line; each managed wor
 Requirements: Node.js 20 or newer, Git, tmux, and at least one supported agent CLI installed and authenticated.
 
 ```bash
-npx sidings@latest
+npx @sidings-lab/sidings@latest
 ```
 
 Sidings opens `http://127.0.0.1:3000` in your browser and uses the current directory as the project. To choose another repository or avoid opening a browser:
 
 ```bash
-npx sidings@latest --project ../my-project
-npx sidings@latest --no-open --port 4173
+npx @sidings-lab/sidings@latest --project ../my-project
+npx @sidings-lab/sidings@latest --no-open --port 4173
 ```
 
 Or install it globally:
 
 ```bash
-npm install --global sidings
+npm install --global @sidings-lab/sidings
 sidings
 ```
 
-Session metadata remains local and is stored under `~/.spec-cat` by default.
+Session metadata remains local and is stored under `~/.sidings` by default.
+Installations that predate the Sidings rename keep their state in `~/.spec-cat`;
+the first run moves that directory to `~/.sidings`, repointing stored session
+paths and relinking managed git worktrees. Nothing is merged: if `~/.sidings`
+already exists, the legacy directory is left alone and a warning is logged.
 
 ## Why Sidings?
 

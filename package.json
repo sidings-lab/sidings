@@ -1,6 +1,6 @@
 {
-  "name": "sidings",
-  "version": "0.2.0",
+  "name": "@sidings-lab/sidings",
+  "version": "0.2.1",
   "description": "Git-native workbench for autonomous coding agents",
   "license": "MIT",
   "keywords": [
@@ -17,10 +17,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/spec-cat/sidings.git"
+    "url": "git+https://github.com/sidings-lab/sidings.git"
   },
-  "homepage": "https://github.com/spec-cat/sidings#readme",
-  "bugs": "https://github.com/spec-cat/sidings/issues",
+  "homepage": "https://github.com/sidings-lab/sidings#readme",
+  "bugs": "https://github.com/sidings-lab/sidings/issues",
   "files": [
     ".output",
     ".output/server/node_modules/node-pty",

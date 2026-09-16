@@ -95,8 +95,8 @@ const child = spawn(process.execPath, [serverEntry], {
     NITRO_HOST: '127.0.0.1',
     HOST: '127.0.0.1',
     // Point session storage at a throwaway dir so verification never
-    // touches real session data under ~/.spec-cat.
-    SPEC_CAT_V2_DIR: sessionDir
+    // touches real session data under ~/.sidings.
+    SIDINGS_V2_DIR: sessionDir
   },
   stdio: ['ignore', 'pipe', 'pipe']
 })

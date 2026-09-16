@@ -54,12 +54,20 @@ const HOOK_EVENTS = [
   'SubagentStop'
 ] as const
 
-const RUNNER_FILENAME = 'spec-cat-hook-runner.cjs'
+const RUNNER_FILENAME = 'sidings-hook-runner.cjs'
 
 // Markers identifying hook entries injected by this module (or by earlier
-// versions that configured the spool through the environment), so re-running
-// the injection replaces previous entries instead of accumulating duplicates.
-const INJECTED_ENTRY_MARKERS = [RUNNER_FILENAME, 'SPEC_CAT_HOOK_SPOOL']
+// versions that used the pre-rename runner name, or configured the spool
+// through the environment), so re-running the injection replaces previous
+// entries instead of accumulating duplicates. The legacy markers must stay:
+// a worktree provisioned before the Sidings rename still carries a hook entry
+// pointing at a runner path that no longer exists.
+const INJECTED_ENTRY_MARKERS = [
+  RUNNER_FILENAME,
+  'SIDINGS_HOOK_SPOOL',
+  'spec-cat-hook-runner.cjs',
+  'SPEC_CAT_HOOK_SPOOL'
+]
 
 /** Only claude supports safe per-session hook injection (see module comment). */
 export function providerSupportsCliHooks(provider: ProviderId) {
@@ -94,7 +102,7 @@ process.stdin.on('data', (chunk) => { input += chunk })
 process.stdin.on('end', () => {
   // Spool path comes from argv because the CLI runs inside a detached tmux
   // session and never sees the web server's environment.
-  const spoolPath = process.argv[2] || process.env.SPEC_CAT_HOOK_SPOOL
+  const spoolPath = process.argv[2] || process.env.SIDINGS_HOOK_SPOOL
   if (!spoolPath) process.exit(0)
 
   let payload = null

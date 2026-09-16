@@ -30,8 +30,8 @@ async function setup() {
   const worktree = join(root, 'wt')
   await git(projectDir, ['worktree', 'add', '-q', '-b', 'sc/conv', worktree, 'HEAD'])
 
-  process.env.SPEC_CAT_V2_DIR = v2
-  process.env.SPEC_CAT_PROJECT_DIR = projectDir
+  process.env.SIDINGS_V2_DIR = v2
+  process.env.SIDINGS_PROJECT_DIR = projectDir
   const store = await import('../server/utils/session-store')
   const integ = await import('../server/utils/session-integration')
 

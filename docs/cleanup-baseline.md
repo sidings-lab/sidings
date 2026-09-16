@@ -55,7 +55,7 @@ remains available for the user to run manually.
 
 ## Compatibility contracts
 
-Cleanup must preserve API paths and payload fields, `~/.spec-cat` paths and JSON
+Cleanup must preserve API paths and payload fields, `~/.sidings` paths and JSON
 schemas, NUL-prefixed terminal control frames, raw terminal data frames, tmux and
 Git argument ordering, current error text, and timer intervals listed above.
 Provider launch commands remain exactly:

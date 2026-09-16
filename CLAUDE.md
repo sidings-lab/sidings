@@ -15,7 +15,7 @@ do not execute server
 ## Project Context
 - Stack: Nuxt, Vue, TypeScript, Tailwind CSS, Nitro server routes, `node-pty`, and `tmux`.
 - Product goal: a local web terminal for AI CLI conversations with provider selection, persisted session metadata, and isolated git worktrees.
-- Session state is filesystem-backed under `~/.spec-cat` by default.
+- Session state is filesystem-backed under `~/.sidings` by default.
 - New conversations are expected to run in managed worktrees and be removable with their tmux sessions and branches.
 
 ## Spec Workflow
