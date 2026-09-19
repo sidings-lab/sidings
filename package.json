@@ -1,6 +1,6 @@
 {
   "name": "@sidings-lab/sidings",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Git-native workbench for autonomous coding agents",
   "license": "MIT",
   "keywords": [
@@ -23,6 +23,7 @@
   "bugs": "https://github.com/sidings-lab/sidings/issues",
   "files": [
     ".output",
+    ".output/server/node_modules/@homebridge",
     ".output/server/node_modules/node-pty",
     "bin"
   ],
@@ -50,7 +51,7 @@
     "@xterm/xterm": "^6.0.0",
     "dompurify": "^3.4.12",
     "marked": "^18.0.6",
-    "node-pty": "^1.1.0",
+    "node-pty": "npm:@homebridge/node-pty-prebuilt-multiarch@^0.14.1",
     "nuxt": "^4.4.8",
     "pg": "^8.22.0",
     "vue": "^3.5.25"

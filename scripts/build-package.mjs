@@ -35,24 +35,44 @@ function run(command, args) {
 
 function copyNodePtyNativeAssets() {
   const sourceRoot = dirname(require.resolve('node-pty/package.json'))
-  const outputRoot = resolve(rootDir, '.output/server/node_modules/node-pty')
-  const candidates = [
-    ['build', 'build'],
-    [`prebuilds/${process.platform}-${process.arch}`, `prebuilds/${process.platform}-${process.arch}`]
+  const outputRoots = [
+    resolve(rootDir, '.output/server/node_modules/@homebridge/node-pty-prebuilt-multiarch'),
+    resolve(rootDir, '.output/server/node_modules/node-pty')
   ]
 
-  let copied = false
-  for (const [sourcePath, outputPath] of candidates) {
-    const source = resolve(sourceRoot, sourcePath)
-    if (!existsSync(source)) continue
+  const prebuildsSource = resolve(sourceRoot, 'prebuilds')
+  const thirdPartySource = resolve(sourceRoot, 'third_party')
 
-    const destination = resolve(outputRoot, outputPath)
-    mkdirSync(dirname(destination), { recursive: true })
-    cpSync(source, destination, { recursive: true, force: true })
-    copied = true
+  let copied = false
+  for (const outputRoot of outputRoots) {
+    if (!existsSync(outputRoot)) {
+      mkdirSync(outputRoot, { recursive: true })
+    }
+
+    for (const item of ['package.json', 'lib']) {
+      const itemSrc = resolve(sourceRoot, item)
+      const itemDest = resolve(outputRoot, item)
+      if (existsSync(itemSrc) && !existsSync(itemDest)) {
+        cpSync(itemSrc, itemDest, { recursive: true, force: true })
+      }
+    }
+
+    if (existsSync(prebuildsSource)) {
+      const destination = resolve(outputRoot, 'prebuilds')
+      mkdirSync(dirname(destination), { recursive: true })
+      cpSync(prebuildsSource, destination, { recursive: true, force: true })
+      copied = true
+    }
+
+    if (existsSync(thirdPartySource)) {
+      const destination = resolve(outputRoot, 'third_party')
+      mkdirSync(dirname(destination), { recursive: true })
+      cpSync(thirdPartySource, destination, { recursive: true, force: true })
+    }
   }
 
   if (!copied) {
     throw new Error(`Could not find node-pty native assets in ${sourceRoot}`)
   }
 }
+

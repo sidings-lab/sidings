@@ -1,3 +1,4 @@
 allowBuilds:
+  '@homebridge/node-pty-prebuilt-multiarch': true
   esbuild: true
   node-pty: true
