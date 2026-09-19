@@ -29,10 +29,6 @@ sidings
 ```
 
 Session metadata remains local and is stored under `~/.sidings` by default.
-Installations that predate the Sidings rename keep their state in `~/.spec-cat`;
-the first run moves that directory to `~/.sidings`, repointing stored session
-paths and relinking managed git worktrees. Nothing is merged: if `~/.sidings`
-already exists, the legacy directory is left alone and a warning is logged.
 
 ## Why Sidings?
 
